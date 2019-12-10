@@ -1,0 +1,29 @@
+{:duct.profile/base
+ {:duct.core/project-ns v2okimochi-apps-api
+  ;; サーバではルーティング処理にpedestalを用い、ホスト名とポート番号を指定する
+  :duct.server/pedestal
+  {:service #:io.pedestal.http{:routes #ig/ref :v2okimochi-apps-api.routes/routes
+                               ;; herokuは `localhost`ではダメ
+                               :host "0.0.0.0"
+                               ;; herokuの環境変数は `PORT`で取得する
+                               :port #duct/env ["PORT" Int :or 9001]}}
+  ;; ルーティング処理は `routes.clj/routes`で行う
+  :v2okimochi-apps-api.routes/routes
+  {:db #ig/ref :duct.database/sql}}
+
+ ;; devやlocal環境に関する設定情報を読み込む (`dev/resources/`下を読んでいる気がする)
+ :duct.profile/dev #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+
+ ;; production環境についての設定情報を読み込む
+ :duct.profile/prod  {}
+
+ ;; ductのモジュール機能経由でpedestalを利用する
+ :duct.module/pedestal {}
+
+ ;; Herokuに置かれた時は、JawsDB Mariaに接続するURLを環境変数から取得できる
+ :duct.module/sql
+ {:database-url #duct/env "JDBC_DATABASE_URL"}
+
+ ;; ログ関連
+ :duct.module/cambium {}}

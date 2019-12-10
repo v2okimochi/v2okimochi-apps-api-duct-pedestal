@@ -1,0 +1,2 @@
+{:duct.database.sql/hikaricp
+ {:jdbc-url "jdbc:mysql://localhost:3399/v2okimochi?user=v2okimochi_dev&password=password1"}}

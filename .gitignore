@@ -1,0 +1,7 @@
+/target
+/logs
+/classes
+*.jar
+*.class
+/.lein-*
+/.nrepl-port

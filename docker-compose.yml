@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mysql:
+    image: mariadb:10.4.0
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3399:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: v2okimochi_dev
+      MYSQL_PASSWORD: password1
+      MYSQL_DATABASE: v2okimochi
+      TZ: "Asia/Tokyo"
+
+volumes:
+  mysql-data:
+    driver: local
